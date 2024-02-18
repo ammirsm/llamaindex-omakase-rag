@@ -1,0 +1,29 @@
+[tool.black]
+line_length = 116
+target_version = ['py310']
+
+[tool.ruff]
+exclude = [
+    "venv",
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    "venv",
+    "scripts",
+    "static",
+]
+ignore = []
+line-length = 120
+select = [
+    "E",
+    "F",
+    "W",
+    "I001",
+]
+src = ["src", "tests"]
+
+[tool.pytest.ini_options]
+pythonpath = [
+    "."
+]

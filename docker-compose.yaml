@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+#   web:
+#     build: .
+#     volumes:
+#       - .:/usr/src/app
+#     ports:
+#       - "8000:8000"
+#     environment:
+#       - PYTHONUNBUFFERED=1
+  db:
+    image: postgres:15
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  redis:
+      image: redis:latest
+      ports:
+        - "6379:6379"
+      environment:
+        - REDIS_HOST=redis
+        - REDIS_PORT=6379
+        - REDIS_DB=0
