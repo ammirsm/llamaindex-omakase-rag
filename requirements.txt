@@ -18,11 +18,7 @@ virtualenv==20.25.0
 django==4.2.9
 psycopg2-binary>=2.8
 django-environ==0.11.2
-google-api-python-client==2.114.0
-google-auth-httplib2==0.2.0
-google-auth-oauthlib==1.2.0
 beautifulsoup4==4.12.3
-llama_index==0.9.33
 uuid==1.30
 celery==5.3.6
 redis==5.0.1
@@ -32,4 +28,8 @@ gevent==23.9.1
 gevent==23.9.1
 pybloom-live==4.0.0
 django-advanced-filters==2.0.0
-llama-index==0.9.33
+llama-index==0.10.6
+llama-index-readers-google==0.1.2
+llama-index-storage-docstore-redis
+llama-index-vector-stores-redis
+llama-index-embeddings-huggingface
