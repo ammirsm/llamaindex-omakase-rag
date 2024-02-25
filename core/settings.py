@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "main",
+    "datastore",
+    "uac",
+    "rag",
     "django_celery_beat",
     "django_celery_results",
     "advanced_filters",
@@ -137,10 +140,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # merge base dir with env var
-GMAIL_CREDS_PATH = os.path.join(BASE_DIR, os.environ.get("GMAIL_CREDS_PATH", "config/credentials.json"))
-GMAIL_TOKEN_PATH = os.path.join(BASE_DIR, os.environ.get("GMAIL_TOKEN_PATH", "config/token.json"))
-SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
+GDRIVE_SERVICE_ACCOUNT = os.path.join(BASE_DIR, os.environ.get("GMAIL_CREDS_PATH", "config/service_account.json"))
+GDRIVE_TEST_FOLDER_ID = os.environ.get("GMAIL_TEST_FOLDER_ID", "1NIGvjHBuUQHWnMqzboyg-zLI1q_bOuCH")
+
 
 # celery configs
 CELERY_BROKER_URL = "redis://localhost:6379/0"
 CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+
+
+# Override User
+AUTH_USER_MODEL = "uac.UACUser"
