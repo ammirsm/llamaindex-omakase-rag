@@ -12,7 +12,9 @@ exclude = [
     "venv",
     "scripts",
     "static",
+    ".*migrations.*",
 ]
+
 ignore = []
 line-length = 120
 select = [
