@@ -16,6 +16,10 @@ These instructions will get your copy of the project up and running on your loca
 
 You need to have Python 3.9 installed on your machine. You also need pip for installing the dependencies. It usually comes with Python.
 
+Besides you need to create a new service account on the google drive for creating the config in the system.
+You can follow step and 1 and 2 in this tutorial which shows how to create the service account and get the credentials file.
+https://medium.com/@matheodaly.md/using-google-drive-api-with-python-and-a-service-account-d6ae1f6456c2
+
 ### Installing
 
 After cloning the repository and navigating into the directory, install the dependencies using pip:
@@ -61,6 +65,14 @@ Run Celery Beats:
 ```bash
 celery -A core beat --loglevel=info
 ```
+
+Run script to fill up your database:
+
+```bash
+python scripts/seeder.py
+```
+
+
 
 ## Deployment
 
