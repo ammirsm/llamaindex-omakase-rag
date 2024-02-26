@@ -146,8 +146,8 @@ GDRIVE_TEST_FOLDER_ID = os.environ.get("GMAIL_TEST_FOLDER_ID", "1NIGvjHBuUQHWnMq
 
 # celery configs
 CELERY_BROKER_URL = "redis://localhost:6379/0"
-CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
-
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_CACHE_BACKEND = "django-cache"
 
 # Override User
 AUTH_USER_MODEL = "uac.UACUser"
