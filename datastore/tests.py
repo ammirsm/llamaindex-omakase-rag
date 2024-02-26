@@ -1,20 +1,42 @@
-from core.settings import GDRIVE_SERVICE_ACCOUNT, GDRIVE_TEST_FOLDER_ID
+from datetime import datetime, timezone
+
+from core.settings import GDRIVE_SERVICE_ACCOUNT
 from django.test import TestCase
 
-from datastore.models import Config
+from datastore.factories import ConfigFactory, FolderFactory
+from datastore.models.config import Config
 
 
-# Create your tests here.
-class TestPassbook(TestCase):
+class TestConfig(TestCase):
     def test_config(self):
+        # GIVEN create a config object
         config = Config.objects.create(credentials=GDRIVE_SERVICE_ACCOUNT, email="test@test.com")
 
+        # THEN the config object should be created
         self.assertEqual(config.email, "test@test.com")
 
-        google_drive_reader = config.google_drive_reader()
 
-        docs = google_drive_reader.load_data(folder_id=GDRIVE_TEST_FOLDER_ID)
+class TestFolder(TestCase):
+    def test_sync(self):
+        # GIVEN create a folder object
+        config = ConfigFactory()
+        folder = FolderFactory(config=config)
 
-        for doc in docs:
-            doc.id_ = doc.metadata["file name"]
-        print(docs)
+        # WHEN sync_related_docs_with_source is called
+        folder.sync_related_docs_with_source()
+
+        # THEN the folder should have 10 documents
+        self.assertEqual(folder.documents.count(), 10)
+
+        # WHEN Convert all the source_modified_at to old time to make sure they will be updated
+        old_time = datetime(2015, 1, 1, 0, 0, 0, 0, timezone.utc)
+        for doc in folder.documents.all():
+            doc.source_modified_at = old_time
+            doc.save()
+
+        # WHEN sync_related_docs_with_source is called
+        folder.sync_related_docs_with_source()
+
+        # THEN all the source_modified_at should be updated
+        for doc in folder.documents.all():
+            self.assertNotEqual(doc.source_modified_at, old_time)
