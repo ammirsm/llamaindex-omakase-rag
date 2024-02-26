@@ -4,6 +4,7 @@ target_version = ['py310']
 
 [tool.ruff]
 exclude = [
+    "*__init__.py",
     "venv",
     ".git",
     "__pycache__",
