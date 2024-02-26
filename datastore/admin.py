@@ -1,6 +1,8 @@
 from django.contrib import admin
 
-from .models import Config, Document, Folder
+from datastore.models.config import Config
+from datastore.models.document import Document
+from datastore.models.folder import Folder
 
 
 class ConfigAdmin(admin.ModelAdmin):
