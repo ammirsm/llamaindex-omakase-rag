@@ -1,4 +1,4 @@
-[![Python - 3.9](https://img.shields.io/badge/Python-3.9-blue)](https://www.python.org/downloads/release/python-390/ "Python 3.9")
+[![Python - 3.9](https://img.shields.io/badge/Python-3.9-blue)](https://www.python.org/downloads/release/python-390/ "Python 3.10")
 [![Maintained - yes](https://img.shields.io/badge/Maintained-Yes-green)](https://github.com/0xbow-io/asp-admin-dashboard "The Repository is well Maintained.")
 [![Django - 4.2.9](https://img.shields.io/badge/Django-4.2.9-blue)](https://www.djangoproject.com/download/ "Django 4.2.9")
 
@@ -14,11 +14,12 @@ These instructions will get your copy of the project up and running on your loca
 
 ### Prerequisites
 
-You need to have Python 3.9 installed on your machine. You also need pip for installing the dependencies. It usually comes with Python.
+You need to have Python 3.10 installed on your machine. You also need pip for installing the dependencies. It usually comes with Python.
 
 Besides you need to create a new service account on the google drive for creating the config in the system.
 You can follow step and 1 and 2 in this tutorial which shows how to create the service account and get the credentials file.
 https://medium.com/@matheodaly.md/using-google-drive-api-with-python-and-a-service-account-d6ae1f6456c2
+You should add this under the `/config/service_account.json` file.
 
 ### Installing
 
