@@ -151,3 +151,6 @@ CELERY_CACHE_BACKEND = "django-cache"
 
 # Override User
 AUTH_USER_MODEL = "uac.UACUser"
+
+# CHUNK EMBEDDING SIZE
+EMBEDDING_SIZE = os.environ.get("EMBEDDING_SIZE", 1536)

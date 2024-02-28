@@ -42,6 +42,17 @@ class BaseModel(Active, UUID, DateTime):
     Base model for all models
     """
 
+    def pre_save(self):
+        pass
+
+    def post_save(self):
+        pass
+
+    def save(self, *args, **kwargs):
+        self.pre_save()
+        super().save(*args, **kwargs)
+        self.post_save()
+
     class Meta:
         abstract = True
 
