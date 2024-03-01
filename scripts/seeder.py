@@ -8,6 +8,7 @@ from core.settings import GDRIVE_SERVICE_ACCOUNT, GDRIVE_TEST_FOLDER_ID
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 import django
+from django.db.utils import IntegrityError
 
 django.setup()
 
