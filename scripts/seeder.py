@@ -25,7 +25,10 @@ Config.objects.all().delete()
 
 
 # Import django user
-UACUser.objects.create_superuser("new_admin_4", password="123admin123", email="new_admin@user.com")
+try:
+    UACUser.objects.create_superuser("new_admin_4", password="123admin123", email="new_admin@user.com")
+except IntegrityError:
+    pass
 
 # Create the config
 
