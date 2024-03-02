@@ -1,21 +1,27 @@
 __all__ = ["FolderSyncer"]
 
 from datastore.services.syncer.folder.builder import FolderDocumentBuilder
-from datastore.services.syncer.folder.loader import FolderLoader
+from datastore.services.syncer.folder.loader import (
+    FreshDocumentsMetaDataLoader,
+    RelatedDocumentsObjectLoader,
+)
 
 
 class FolderSyncer(object):
     DOC_ID_FIELD = "file id"
 
     def __init__(self, folder):
-        self.folder_loader = FolderLoader(folder)
+        self.fresh_docs_meta_data_loader = FreshDocumentsMetaDataLoader(folder)
+        self.related_docs_object_loader = RelatedDocumentsObjectLoader(folder)
         self.folder = folder
 
     def sync(self):
-        self.folder_loader.load_data()
+        self.fresh_docs_meta_data_loader.load_data()
 
-        fresh_docs = self.folder_loader.fresh_docs
-        related_docs = self.folder_loader.related_docs
+        self.related_docs_object_loader.load_data()
+
+        fresh_docs = self.fresh_docs_meta_data_loader.docs
+        related_docs = self.related_docs_object_loader.docs
 
         for fresh_doc in fresh_docs:
             self.folder_document_builder = FolderDocumentBuilder(fresh_doc, related_docs, self.folder)
