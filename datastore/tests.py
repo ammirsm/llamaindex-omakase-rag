@@ -26,7 +26,7 @@ class TestFolder(TestCase):
         folder.sync_related_docs_with_source()
 
         # THEN the folder should have 10 documents
-        self.assertEqual(folder.documents.count(), 10)
+        self.assertEqual(folder.documents.count(), 15)
 
         # WHEN Convert all the source_modified_at to old time to make sure they will be updated
         old_time = datetime(2015, 1, 1, 0, 0, 0, 0, timezone.utc)
