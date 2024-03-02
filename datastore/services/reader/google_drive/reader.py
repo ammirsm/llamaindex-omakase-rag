@@ -58,12 +58,12 @@ class DjangoGoogleDriveReader(GoogleDriveReader):
         except Exception as e:
             logger.error(f"An error occurred while loading from folder: {e}")
 
-    def load_document_from_meta_data(self, meta_data: dict) -> List[Document]:
+    def load_document_from_meta_data(self, metadata: dict) -> List[Document]:
         """
-        This method is used to load a document from the provided meta data.
+        This method is used to load a document from the provided metadata.
 
         Args:
-            meta_data (dict): A dictionary containing the meta data of the document. The dictionary should have the
+            metadata (dict): A dictionary containing the metadata of the document. The dictionary should have the
             following keys:
                 - "file id": The id of the file.
                 - "author": The author of the file.
@@ -73,19 +73,19 @@ class DjangoGoogleDriveReader(GoogleDriveReader):
                 - "modified at": The last modification date of the file.
 
         Returns:
-            List[Document]: A list of Document objects loaded from the provided meta data.
+            List[Document]: A list of Document objects loaded from the provided metadata.
         """
         # Get the credentials and drive
         self._creds, self._drive = self._get_credentials()
 
-        # Get the file meta data and the order here is important because in the _load_data_fileids_meta it will be used
+        # Get the file metadata and the order here is important because in the _load_data_fileids_meta it will be used
         fileid_meta_list = [
-            meta_data["file id"],
-            meta_data["author"],
-            meta_data["file name"],
-            meta_data["mime type"],
-            meta_data["created at"],
-            meta_data["modified at"],
+            metadata["file id"],
+            metadata["author"],
+            metadata["file name"],
+            metadata["mime type"],
+            metadata["created at"],
+            metadata["modified at"],
         ]
 
         # Load the data from the file ids and return Document
