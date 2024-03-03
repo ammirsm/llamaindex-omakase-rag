@@ -4,6 +4,7 @@ import uuid
 
 import django.db.models.deletion
 from django.db import migrations, models
+from pgvector.django import VectorExtension
 
 
 class Migration(migrations.Migration):
@@ -12,6 +13,7 @@ class Migration(migrations.Migration):
     dependencies = []
 
     operations = [
+        VectorExtension(),
         migrations.CreateModel(
             name="Config",
             fields=[
