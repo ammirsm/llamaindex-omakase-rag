@@ -16,5 +16,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework.permissions import AllowAny
 
-urlpatterns = [path("admin/", admin.site.urls), path("advanced_filters/", include("advanced_filters.urls"))]
+schema_view = get_schema_view(
+    openapi.Info(
+        title="RAG API",
+        default_version="v1",
+        description="RAG API",
+    ),
+    public=True,
+    permission_classes=[AllowAny],
+)
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("advanced_filters/", include("advanced_filters.urls")),
+    path("rag/", include("rag.urls")),
+    path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema_swagger_ui"),
+]
