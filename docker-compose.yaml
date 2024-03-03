@@ -10,7 +10,7 @@ services:
 #     environment:
 #       - PYTHONUNBUFFERED=1
   db:
-    image: postgres:15
+    image: pgvector/pgvector:pg15
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
     ports:

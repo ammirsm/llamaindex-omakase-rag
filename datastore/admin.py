@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from datastore.models.config import Config
-from datastore.models.document import Document
+from datastore.models.document import Document, DocumentChunk
 from datastore.models.folder import Folder
 from datastore.tasks import sync_folder
 
@@ -30,6 +30,13 @@ class DocumentAdmin(admin.ModelAdmin):
     list_filter = ("created_at", "updated_at")
 
 
+class DocumentChunkAdmin(admin.ModelAdmin):
+    list_display = ("id", "chunk", "document", "embedding", "created_at", "updated_at")
+    search_fields = ("chunk",)
+    list_filter = ("created_at", "updated_at")
+
+
 admin.site.register(Config, ConfigAdmin)
 admin.site.register(Folder, FolderAdmin)
 admin.site.register(Document, DocumentAdmin)
+admin.site.register(DocumentChunk, DocumentChunkAdmin)

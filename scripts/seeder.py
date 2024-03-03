@@ -8,6 +8,7 @@ from core.settings import GDRIVE_SERVICE_ACCOUNT, GDRIVE_TEST_FOLDER_ID
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 import django
+from django.db.utils import IntegrityError
 
 django.setup()
 
@@ -25,7 +26,10 @@ Config.objects.all().delete()
 
 
 # Import django user
-UACUser.objects.create_superuser("new_admin_4", password="123admin123", email="new_admin@user.com")
+try:
+    UACUser.objects.create_superuser("new_admin_4", password="123admin123", email="new_admin@user.com")
+except IntegrityError:
+    pass
 
 # Create the config
 

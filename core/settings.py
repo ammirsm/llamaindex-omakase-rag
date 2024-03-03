@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "django_celery_results",
     "advanced_filters",
+    "rest_framework",
+    "django_filters",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -81,7 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -95,7 +97,6 @@ DATABASES = {
         "PORT": "5432",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -115,7 +116,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -126,7 +126,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -143,7 +142,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 GDRIVE_SERVICE_ACCOUNT = os.path.join(BASE_DIR, os.environ.get("GMAIL_CREDS_PATH", "config/service_account.json"))
 GDRIVE_TEST_FOLDER_ID = os.environ.get("GMAIL_TEST_FOLDER_ID", "1NIGvjHBuUQHWnMqzboyg-zLI1q_bOuCH")
 
-
 # celery configs
 CELERY_BROKER_URL = "redis://localhost:6379/0"
 CELERY_RESULT_BACKEND = "django-db"
@@ -151,3 +149,8 @@ CELERY_CACHE_BACKEND = "django-cache"
 
 # Override User
 AUTH_USER_MODEL = "uac.UACUser"
+
+# CHUNK EMBEDDING SIZE
+EMBEDDING_SIZE = os.environ.get("EMBEDDING_SIZE", 384)
+
+REST_FRAMEWORK = {"DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination", "PAGE_SIZE": 10}

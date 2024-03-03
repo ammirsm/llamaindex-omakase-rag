@@ -19,3 +19,17 @@ class FolderFactory(BaseModelFactory):
 
     folder_id = GDRIVE_TEST_FOLDER_ID
     config = ConfigFactory()
+
+
+class DocumentFactory(BaseModelFactory):
+    class Meta:
+        model = "datastore.Document"
+
+    folder = FolderFactory()
+
+
+class DocumentChunkFactory(BaseModelFactory):
+    class Meta:
+        model = "datastore.DocumentChunk"
+
+    document = DocumentFactory()
