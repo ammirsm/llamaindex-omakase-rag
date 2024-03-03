@@ -15,10 +15,10 @@ class Config(BaseModel):
         return self.email
 
     def google_drive_reader(self):
-        from llama_index.readers.google import GoogleDriveReader
+        from datastore.services.reader.google_drive.reader import DjangoGoogleDriveReader
 
-        reader = GoogleDriveReader(credentials_path=self.credentials)
-        return reader
+        self.reader = DjangoGoogleDriveReader(credentials_path=self.credentials)
+        return self.reader
 
     class Meta:
         verbose_name = "Config"

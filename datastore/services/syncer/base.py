@@ -10,6 +10,8 @@ class BaseSyncer(abc.ABC):
 
 
 class BaseLoader(abc.ABC):
+    docs = None
+
     @abc.abstractmethod
     def load_data(self):
         pass

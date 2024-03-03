@@ -6,6 +6,7 @@ from datastore.services.syncer.base import BaseBuilder
 class FolderDocumentBuilder(BaseBuilder):
     MODIFIED_AT_FIELD = "modified at"
     CREATED_AT_FIELD = "created at"
+    DOC_ID_FIELD = "file id"
 
     def __init__(self, fresh_doc, related_docs, folder):
         self.fresh_doc = fresh_doc
@@ -13,7 +14,7 @@ class FolderDocumentBuilder(BaseBuilder):
         self.folder = folder
 
     def build(self):
-        document_in_database = self.related_docs.filter(doc_id=self.fresh_doc.doc_id)
+        document_in_database = self.related_docs.filter(doc_id=self.fresh_doc[self.DOC_ID_FIELD])
 
         # Handle the case where the document is in the database
         if document_in_database.exists():
@@ -25,6 +26,9 @@ class FolderDocumentBuilder(BaseBuilder):
 
     def _create_doc(self, fresh_doc):
         from datastore.models import Document
+
+        fresh_doc = self.folder.config.reader.load_document_from_meta_data(fresh_doc)
+        fresh_doc = fresh_doc[0]
 
         doc = Document.objects.create(
             doc_id=fresh_doc.doc_id,
@@ -48,6 +52,9 @@ class FolderDocumentBuilder(BaseBuilder):
             self._update_db_document_base_on_fresh_doc(fresh_doc, doc_in_db)
 
     def _update_db_document_base_on_fresh_doc(self, fresh_doc, doc_in_db):
+        fresh_doc = self.folder.config.reader.load_document_from_meta_data(fresh_doc)
+        fresh_doc = fresh_doc[0]
+
         doc_in_db.metadata = fresh_doc.metadata
         doc_in_db.text = fresh_doc.text
         doc_in_db.source_modified_at = self._get_modified_at_of_doc(fresh_doc)
@@ -70,9 +77,15 @@ class FolderDocumentBuilder(BaseBuilder):
         return date_object
 
     def _get_modified_at_of_doc(self, doc):
-        metadata_value = doc.metadata[self.MODIFIED_AT_FIELD]
+        if type(doc) is dict:
+            metadata_value = doc[self.MODIFIED_AT_FIELD]
+        else:
+            metadata_value = doc.metadata[self.MODIFIED_AT_FIELD]
         return self._convert_to_datetime(metadata_value)
 
     def _get_created_at_of_doc(self, doc):
-        metadata_value = doc.metadata[self.CREATED_AT_FIELD]
+        if type(doc) is dict:
+            metadata_value = doc[self.CREATED_AT_FIELD]
+        else:
+            metadata_value = doc.metadata[self.CREATED_AT_FIELD]
         return self._convert_to_datetime(metadata_value)
