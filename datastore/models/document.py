@@ -1,6 +1,9 @@
 from core.base.models import BaseData
 from core.settings import EMBEDDING_SIZE
 from django.db import models
+from llama_index.core import Document as LlamaDocument
+from llama_index.core.node_parser import SentenceSplitter
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from pgvector.django import VectorField
 
 from datastore.models.folder import Folder
@@ -24,6 +27,7 @@ class Document(BaseData):
     source_created_at = models.DateTimeField(null=True, blank=True)
     source_modified_at = models.DateTimeField(null=True, blank=True)
     chunk_size = models.IntegerField(default=1000)
+    chunk_overlap = models.IntegerField(default=20)
 
     def __str__(self):
         return self.doc_id
@@ -36,7 +40,15 @@ class Document(BaseData):
         # 2. save the chunks
         # documents (llamaindex) should be created from the actual text that we have here
         # nodes = splitter.get_nodes_from_documents(documents)
-        pass
+
+        splitter = SentenceSplitter(
+            chunk_size=int(str(self.chunk_size)),
+            chunk_overlap=int(str(self.chunk_overlap)),
+        )
+        nodes = splitter.get_nodes_from_documents([LlamaDocument(text=self.text)])
+        for node in nodes:
+            # TODO: Should Delete old chunks after update Document
+            DocumentChunk.objects.get_or_create(document_id=self.id, chunk=node.text)
 
     class Meta:
         verbose_name = "Document"
@@ -50,17 +62,20 @@ class DocumentChunk(BaseData):
 
     chunk = models.TextField()
     document = models.ForeignKey(Document, related_name="chunks", on_delete=models.CASCADE)
-    embedding = VectorField(dimensions=EMBEDDING_SIZE)
+    embedding = VectorField(dimensions=EMBEDDING_SIZE, null=True)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
     def post_save(self):
         # TODO 2:
         # https://docs.llamaindex.ai/en/stable/module_guides/models/embeddings.html
         # 1. create embeddings for the chunk
         # 2. save the embeddings
-        pass
+        if not self.embedding:
+            embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
+            self.embedding = embed_model.get_text_embedding(text=self.chunk)
+            self.save()
 
     class Meta:
         verbose_name = "Document Chunk"
