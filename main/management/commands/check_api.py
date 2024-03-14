@@ -7,7 +7,7 @@ from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    help = "Demonstrates the use of IntegrityError"
+    help = "This will be a command for checking the api is working when the app is running after seeder import"
 
     def handle(self, *args, **kwargs):
         LOCALHOST_URL = "http://localhost:8000"

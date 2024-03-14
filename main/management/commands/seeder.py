@@ -10,7 +10,7 @@ from uac.models import FolderPermission, UACUser
 
 
 class Command(BaseCommand):
-    help = "Demonstrates the use of IntegrityError"
+    help = "This will add seed data to your database"
 
     def handle(self, *args, **kwargs):
         try:
