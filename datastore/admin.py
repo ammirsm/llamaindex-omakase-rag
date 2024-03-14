@@ -1,8 +1,6 @@
 from django.contrib import admin
 
-from datastore.models.config import Config
-from datastore.models.document import Document, DocumentChunk
-from datastore.models.folder import Folder
+from datastore.models import Config, Document, DocumentChunk, Folder
 from datastore.tasks import sync_folder
 
 
@@ -20,7 +18,7 @@ class FolderAdmin(admin.ModelAdmin):
 
     def sync_related_docs_with_source(self, request, queryset):
         for folder in queryset:
-            sync_folder.delay(folder.id)
+            sync_folder.delay(folder.uuid)
         self.message_user(request, "Synced related docs with source")
 
 
@@ -31,8 +29,8 @@ class DocumentAdmin(admin.ModelAdmin):
 
 
 class DocumentChunkAdmin(admin.ModelAdmin):
-    list_display = ("id", "chunk", "document", "embedding", "created_at", "updated_at")
-    search_fields = ("chunk",)
+    list_display = ("id", "chunk", "document", "created_at", "updated_at")
+    search_fields = ("chunk", "document__doc_id")
     list_filter = ("created_at", "updated_at")
 
 
