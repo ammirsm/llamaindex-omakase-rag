@@ -1,4 +1,4 @@
-from datastore.models.document import DocumentChunk
+from datastore.models import DocumentChunk
 from rest_framework import serializers
 
 
@@ -7,7 +7,7 @@ class DocumentChunkSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DocumentChunk
-        fields = ["id", "chunk", "distance"]
+        fields = ["id", "chunk", "distance", "document"]
         read_only_fields = [
             "distance",
         ]
