@@ -16,7 +16,7 @@ jobs:
         python-version: [3.10.9]
 
     env:
-      IS_TEST: 'True'
+      IS_CIRCLE_CI: 'True'
 
     services:
       postgres:

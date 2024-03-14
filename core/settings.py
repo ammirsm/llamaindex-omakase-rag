@@ -185,4 +185,4 @@ CELERY_BEAT_SCHEDULE = {
 LOGIN_USERNAME = os.environ.get("LOGIN_USERNAME", "admin")
 LOGIN_PASSWORD = os.environ.get("LOGIN_PASSWORD", "123admin123")
 
-IS_TEST = os.environ.get("IS_TEST", False)
+IS_CIRCLE_CI = os.environ.get("IS_CIRCLE_CI", False)

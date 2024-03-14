@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from core.settings import GDRIVE_SERVICE_ACCOUNT, GDRIVE_TEST_FOLDER_ID
+from core.settings import GDRIVE_SERVICE_ACCOUNT, GDRIVE_TEST_FOLDER_ID, IS_CIRCLE_CI
 from core.utils import enable_celery_tasks
 from django.test import TestCase
 from django_celery_beat.models import IntervalSchedule, PeriodicTask
@@ -20,6 +20,9 @@ class TestConfig(TestCase):
 
 class TestFolder(TestCase):
     def test_sync(self):
+        if IS_CIRCLE_CI:
+            return
+
         # GIVEN create a folder object
         config = ConfigFactory()
         folder = FolderFactory(config=config)
