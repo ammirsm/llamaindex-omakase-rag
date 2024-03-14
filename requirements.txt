@@ -36,3 +36,4 @@ pgvector==0.2.5
 django-filter==23.5
 drf-yasg==1.21.7
 djangorestframework==3.14.0
+djangorestframework-simplejwt==5.3.1

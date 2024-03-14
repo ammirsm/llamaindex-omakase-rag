@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "drf_yasg",
+    "rest_framework_simplejwt",
 ]
 
 MIDDLEWARE = [
@@ -160,6 +161,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
@@ -177,3 +179,10 @@ CELERY_BEAT_SCHEDULE = {
         "args": (),
     },
 }
+
+# These are for seeder, not for production
+# Comment for production
+LOGIN_USERNAME = os.environ.get("LOGIN_USERNAME", "admin")
+LOGIN_PASSWORD = os.environ.get("LOGIN_PASSWORD", "123admin123")
+
+IS_TEST = os.environ.get("IS_TEST", False)
