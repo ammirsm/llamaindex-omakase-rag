@@ -1,8 +1,7 @@
 from core.base.factory import BaseModelFactory
 from core.settings import GDRIVE_SERVICE_ACCOUNT, GDRIVE_TEST_FOLDER_ID
 
-from datastore.models.config import Config
-from datastore.models.folder import Folder
+from datastore.models import Config, Folder
 
 
 class ConfigFactory(BaseModelFactory):

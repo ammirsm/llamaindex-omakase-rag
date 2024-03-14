@@ -12,11 +12,8 @@ from django.db.utils import IntegrityError
 
 django.setup()
 
-from uac.models import UACUser
-from datastore.models.config import Config
-from datastore.models.folder import Folder
-from datastore.models import Document
-
+from uac.models import UACUser, FolderPermission
+from datastore.models import Config, Folder, Document
 
 # Remove everything from database
 Document.objects.all().delete()
@@ -41,3 +38,7 @@ folder = Folder.objects.create(folder_id=GDRIVE_TEST_FOLDER_ID, config=config)
 
 # Create the documents
 folder.sync_related_docs_with_source()
+
+# Give user permission
+user = UACUser.objects.get(username="new_admin_4")
+folder_permission = FolderPermission.objects.create(user=user, folder=folder)

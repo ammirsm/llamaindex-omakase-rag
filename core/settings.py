@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 
 import environ
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -152,5 +153,27 @@ AUTH_USER_MODEL = "uac.UACUser"
 
 # CHUNK EMBEDDING SIZE
 EMBEDDING_SIZE = os.environ.get("EMBEDDING_SIZE", 384)
+EMBEDDING_MODEL = os.environ.get("EMBEDDING_MODEL", "BAAI/bge-small-en-v1.5")
 
-REST_FRAMEWORK = {"DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination", "PAGE_SIZE": 10}
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+}
+
+
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+
+# CELERY_BEAT
+CELERY_BEAT_SCHEDULE = {
+    # send daily report every midnight
+    "setup_folder_periodic_tasks": {
+        "task": "datastore.tasks.added_folder_periodic_tasks_checker",
+        "schedule": crontab(minute="*/5"),  # Run every 5 minutes
+        "args": (),
+    },
+}
