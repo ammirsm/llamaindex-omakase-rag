@@ -22,7 +22,7 @@ class FolderPermission(BaseModel):
     user = models.ForeignKey(UACUser, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.permission
+        return f"user: {self.user}, folder: {self.folder}"
 
     class Meta:
         verbose_name = "FolderPermission"
