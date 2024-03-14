@@ -24,7 +24,7 @@ jobs:
     - name: Install Dependencies
       run: |
         pip install --upgrade pip
-        pip install --no-cache-dir -r requirements.txt
+        pip install -r requirements.txt
     - name: Run Tests
       run: |
         python manage.py test
