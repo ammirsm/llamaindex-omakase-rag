@@ -1,4 +1,4 @@
-[![Python - 3.9](https://img.shields.io/badge/Python-3.9-blue)](https://www.python.org/downloads/release/python-390/ "Python 3.10")
+[![Python - 3.10.9](https://img.shields.io/badge/Python-3.9-blue)](https://www.python.org/downloads/release/python-390/ "Python 3.10")
 [![Maintained - yes](https://img.shields.io/badge/Maintained-Yes-green)](https://github.com/0xbow-io/asp-admin-dashboard "The Repository is well Maintained.")
 [![Django - 4.2.9](https://img.shields.io/badge/Django-4.2.9-blue)](https://www.djangoproject.com/download/ "Django 4.2.9")
 
