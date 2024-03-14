@@ -3,7 +3,6 @@ from core.settings import EMBEDDING_SIZE
 from django.db import models
 from llama_index.core import Document as LlamaDocument
 from llama_index.core.node_parser import SentenceSplitter
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from pgvector.django import VectorField
 
 from datastore.models.folder import Folder
@@ -11,7 +10,7 @@ from datastore.models.folder import Folder
 
 class Document(BaseData):
     """
-    Model for storing documents
+    Model for storing documents from the folder
     """
 
     doc_id = models.CharField(max_length=1000, db_index=True)
@@ -33,22 +32,49 @@ class Document(BaseData):
         return self.doc_id
 
     def post_save(self):
-        # TODO: 1
-        # https://docs.llamaindex.ai/en/stable/module_guides/loading/node_parsers/modules.html#sentencesplitter
-        # 1. chunk the document text based on chunk size
-        # base_splitter = SentenceSplitter(chunk_size=512)
-        # 2. save the chunks
-        # documents (llamaindex) should be created from the actual text that we have here
-        # nodes = splitter.get_nodes_from_documents(documents)
+        # Create the chunks for the document
+        new_nodes = self._extract_nodes_from_new_document()
 
+        # Get previous nodes
+        previous_nodes = self._get_nodes()
+
+        # Update the nodes
+        self._update_nodes(new_nodes, previous_nodes)
+
+    def _get_nodes(self):
+        """
+        Get the nodes of the related DocumentChunks
+        """
+
+        all_document_chunks = DocumentChunk.objects.filter(document_id=self.id)
+        return list(all_document_chunks.values_list("chunk", flat=True))
+
+    def _update_nodes(self, new_nodes, previous_nodes):
+        """
+        Update the nodes of the document based on the new nodes and previous nodes
+        Args:
+            new_nodes: the nodes that we need to be in the database
+            previous_nodes: the nodes that are currently in the database
+        """
+        # Find which nodes should be created
+        should_be_removed_nodes = list(set(previous_nodes) - set(new_nodes))
+        # Remove the nodes that should be removed
+        for node in should_be_removed_nodes:
+            DocumentChunk.objects.filter(document_id=self.id, chunk=node).delete()
+        # Find which nodes should be created
+        should_be_created_nodes = list(set(new_nodes) - set(previous_nodes))
+        # Create the nodes that should be created
+        for node in should_be_created_nodes:
+            DocumentChunk.objects.get_or_create(document_id=self.id, chunk=node)
+
+    def _extract_nodes_from_new_document(self):
         splitter = SentenceSplitter(
             chunk_size=int(str(self.chunk_size)),
             chunk_overlap=int(str(self.chunk_overlap)),
         )
         nodes = splitter.get_nodes_from_documents([LlamaDocument(text=self.text)])
-        for node in nodes:
-            # TODO: Should Delete old chunks after update Document
-            DocumentChunk.objects.get_or_create(document_id=self.id, chunk=node.text)
+        nodes = [node.text for node in nodes]
+        return nodes
 
     class Meta:
         verbose_name = "Document"
@@ -68,18 +94,11 @@ class DocumentChunk(BaseData):
         return str(self.id)
 
     def post_save(self):
-        # TODO 2:
-        # https://docs.llamaindex.ai/en/stable/module_guides/models/embeddings.html
-        # 1. create embeddings for the chunk
-        # 2. save the embeddings
-        if not self.embedding:
-            embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
-            self.embedding = embed_model.get_text_embedding(text=self.chunk)
-            self.save()
+        from datastore.tasks import update_chunk_embedding
+
+        # Update the embedding for the chunk
+        update_chunk_embedding.delay(self.id)
 
     class Meta:
         verbose_name = "Document Chunk"
         verbose_name_plural = "Document Chunks"
-
-
-# TODO 3: Make these post saves tasks -- do it together
