@@ -1,6 +1,11 @@
-[![Python - 3.10.9](https://img.shields.io/badge/Python-3.9-blue)](https://www.python.org/downloads/release/python-390/ "Python 3.10")
-[![Maintained - yes](https://img.shields.io/badge/Maintained-Yes-green)](https://github.com/0xbow-io/asp-admin-dashboard "The Repository is well Maintained.")
+[![Python - 3.10](https://img.shields.io/badge/Python-3.19-blue)](https://www.python.org/downloads/release/python-390/ "Python 3.10")
 [![Django - 4.2.9](https://img.shields.io/badge/Django-4.2.9-blue)](https://www.djangoproject.com/download/ "Django 4.2.9")
+[![LlamaIndex - 0.10.6](https://img.shields.io/badge/LlamaIndex-0.10.6-blue)](https://www.llamaindex.ai/ "LlamaIndex 0.10.6")
+[![PostgreSQL - 13.4](https://img.shields.io/badge/PostgreSQL-13.4-blue)](https://www.postgresql.org/download/ "PostgreSQL 15")
+[![Celery - 5.3.6](https://img.shields.io/badge/Celery-5.3.6-blue)](https://docs.celeryproject.org/en/stable/getting-started/introduction.html "Celery 5.3.6")
+
+[![Maintained - yes](https://img.shields.io/badge/Maintained-Yes-green)](https://github.com/0xbow-io/asp-admin-dashboard "The Repository is well Maintained.")
+![License - MIT](https://img.shields.io/badge/License-MIT-blue)
 
 ## Supported By
 
