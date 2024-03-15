@@ -99,7 +99,13 @@ celery -A core beat --loglevel=info
 Run script to fill up your database:
 
 ```bash
-python scripts/seeder.py
+python manage.py seeder
+```
+
+When your application is running after seeder use the script below to make sure your api is working:
+
+```bash
+python manage.py check_api
 ```
 
 ## Built With
