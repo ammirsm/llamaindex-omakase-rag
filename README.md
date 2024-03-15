@@ -2,10 +2,31 @@
 [![Maintained - yes](https://img.shields.io/badge/Maintained-Yes-green)](https://github.com/0xbow-io/asp-admin-dashboard "The Repository is well Maintained.")
 [![Django - 4.2.9](https://img.shields.io/badge/Django-4.2.9-blue)](https://www.djangoproject.com/download/ "Django 4.2.9")
 
+## Supported By
 
-# django-llamaindex-google-drive-template
+<a href="https://llamaindex.ai/"><img src="llamaindex.svg" alt="llamaindex" height="40"/></a>
+<a href="https://labs.nset.io"><img src="nset.svg" alt="nset" height="40"/></a>
 
-TBD
+# Omakase RAG Orchestrator
+## django-llamaindex-google-drive-template
+
+Welcome to  Omakase RAG Orchestrator (django-llamaindex-google-drive-template). This initiative aims to address the challenges associated with building RAG applications — transitioning from the concept stage to a live, functional app.
+
+Traditionally, RAG applications start as Python scripts, not full-fledged web applications, limiting their accessibility and scalability. They rely on a knowledge base that doesn't update automatically, requiring the use of external tools for regular updates. Additionally, standard RAG data architectures lack sophisticated user access and permission controls, crucial for multi-user environments.
+
+To tackle these challenges, we are building a comprehensive web application with an API encapsulating Large Language Models (LLMs) and their wrappers. The project includes:
+
+1. Managing Data Sources for Google Drive with Scheduler
+2. User Management with Access Control and Permission Settings
+3. RAG API
+4. Admin panel
+
+Moreover, this innovative solution integrates Django with Llamaindex and Google Drive, expanding your applications' capabilities. It serves as an efficient tool for updating and retrieving your database. Here are the primary benefits, which lower your costs and boost your application's speed:
+
+1. It does not download files every time you sync your database. Instead, it checks for modifications and re-downloads only when required.
+2. During the database chunking process, it ensures there are no duplicate chunks in the database.
+
+By employing these tools and strategies, our project will enhance the usability and functionality of RAG applications and streamline data management and user access.
 
 ## Getting Started
 
@@ -14,12 +35,15 @@ These instructions will get your copy of the project up and running on your loca
 
 ### Prerequisites
 
-You need to have Python 3.10 installed on your machine. You also need pip for installing the dependencies. It usually comes with Python.
+To set up your environment, ensure Python 3.10 and pip (for dependency installation) are installed on your machine.
 
-Besides you need to create a new service account on the google drive for creating the config in the system.
-You can follow step and 1 and 2 in this tutorial which shows how to create the service account and get the credentials file.
-https://medium.com/@matheodaly.md/using-google-drive-api-with-python-and-a-service-account-d6ae1f6456c2
-You should add this under the `/config/service_account.json` file.
+Additionally, a new service account needs to be created on Google Drive for system configuration. Here is a brief summary of the steps:
+
+1. Set up a Google Cloud Platform account.
+2. Generate a new Service Account.
+3. Add a new key to your Service Account.
+
+Follow the instructions in [this tutorial](https://medium.com/@matheodaly.md/create-a-google-cloud-platform-service-account-in-3-steps-7e92d8298800) to guide you through service account creation and obtaining the credentials file. Remember to place this file under `/config/service_account.json`.
 
 ### Installing
 
@@ -73,40 +97,17 @@ Run script to fill up your database:
 python scripts/seeder.py
 ```
 
-
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
--- TBD
-
 ## Built With
 
+* [LlamaIndex](https://www.llamaindex.ai/) - The AI framework used
 * [Django](https://www.djangoproject.com/) - The web framework used
 * [PostgreSQL](https://www.postgresql.org/) - The database used
 
-## Contributing
-
-TBD
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-TBD
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
 
 ## Authors
 
-* **Amir Mehr** - *Initial work* - [ammirsm](https://github.com/ammirsm)
-
-See also the list of [contributors](https://github.com/ammirsm/llm-email-cleaner/contributors) who participated in this project.
+* **Amir Mehr** - *Contributor* - [ammirsm](https://github.com/ammirsm)
 
 ## License
 
-TBD
-This project is licensed under the [LICENSE NAME] License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-TBD
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
