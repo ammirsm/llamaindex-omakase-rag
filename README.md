@@ -118,6 +118,8 @@ python manage.py check_api
 ## Authors
 
 * **Amir Mehr** - *Contributor* - [ammirsm](https://github.com/ammirsm)
+* **Cyrus Norouzi** - *Contributor* - [CyrusOfEden](https://github.com/CyrusOfEden)
+
 
 ## License
 
