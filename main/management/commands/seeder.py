@@ -38,7 +38,7 @@ class Command(BaseCommand):
             print("Created folder")
 
             # Create the documents
-            print("Syncing related documents with source")
+            print("Syncing related documents with source...")
             folder.sync_related_docs_with_source()
             print("Synced related documents with source")
 
