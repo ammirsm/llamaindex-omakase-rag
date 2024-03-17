@@ -39,7 +39,7 @@ class Command(BaseCommand):
             folder.sync_related_docs_with_source()
 
             # Give user permission
-            user = UACUser.objects.get(username="new_admin_4")
+            user = UACUser.objects.get(username=LOGIN_USERNAME)
             FolderPermission.objects.create(user=user, folder=folder)
         except IntegrityError:
             self.stdout.write(self.style.ERROR("An IntegrityError occurred."))
