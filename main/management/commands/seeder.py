@@ -18,28 +18,33 @@ class Command(BaseCommand):
             Document.objects.all().delete()
             Folder.objects.all().delete()
             Config.objects.all().delete()
+            print("Deleted all documents, folders and configs")
 
             # Import django user
             try:
                 UACUser.objects.create_superuser(
                     LOGIN_USERNAME, password=LOGIN_PASSWORD, email="new_admin@user.com"
                 )
+                print("Created superuser")
             except IntegrityError:
                 pass
 
             # Create the config
-
             config = Config.objects.create(credentials=GDRIVE_SERVICE_ACCOUNT, email="test@test.com")
+            print("Created config")
 
             # Create the folder
-
             folder = Folder.objects.create(folder_id=GDRIVE_TEST_FOLDER_ID, config=config)
+            print("Created folder")
 
             # Create the documents
+            print("Syncing related documents with source")
             folder.sync_related_docs_with_source()
+            print("Synced related documents with source")
 
             # Give user permission
             user = UACUser.objects.get(username=LOGIN_USERNAME)
             FolderPermission.objects.create(user=user, folder=folder)
+            print("Gave user permission")
         except IntegrityError:
             self.stdout.write(self.style.ERROR("An IntegrityError occurred."))
