@@ -46,5 +46,10 @@ class Command(BaseCommand):
             user = UACUser.objects.get(username=LOGIN_USERNAME)
             FolderPermission.objects.create(user=user, folder=folder)
             print("Gave user permission")
+
+            print("Seeding completed successfully")
+            print(f"Login with username: {LOGIN_USERNAME} and password: {LOGIN_PASSWORD}")
+            print(f"Folder which has been synced is https://drive.google.com/drive/folders/{GDRIVE_TEST_FOLDER_ID}")
+
         except IntegrityError:
             self.stdout.write(self.style.ERROR("An IntegrityError occurred."))
