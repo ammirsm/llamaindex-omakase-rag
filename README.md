@@ -50,7 +50,32 @@ Additionally, a new service account needs to be created on Google Drive for syst
 
 Follow the instructions in [this tutorial](https://medium.com/@matheodaly.md/create-a-google-cloud-platform-service-account-in-3-steps-7e92d8298800) to guide you through service account creation and obtaining the credentials file. Remember to place this file under `/config/service_account.json`.
 
-### Installing
+
+### Installing with Docker Compose
+
+
+After cloning the repository and navigating into the directory, run the following command to build the Docker image:
+
+```bash
+docker-compose build
+```
+
+Then, run the following command to start the Docker container:
+
+```bash
+docker-compose up -d
+```
+
+Open the http://localhost:8000 and it should be up, running and ready to use.
+
+For adding seed data to the database, run the following command:
+
+```bash
+docker-compose exec web python manage.py seeder
+docker-compose exec web python manage.py check_api
+```
+
+### Installing for Contributors
 
 After cloning the repository and navigating into the directory, install the dependencies using pip:
 A step by step series of examples that tell you how to get a development environment running

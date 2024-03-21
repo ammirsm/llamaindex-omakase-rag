@@ -145,7 +145,8 @@ GDRIVE_SERVICE_ACCOUNT = os.path.join(BASE_DIR, os.environ.get("GMAIL_CREDS_PATH
 GDRIVE_TEST_FOLDER_ID = os.environ.get("GMAIL_TEST_FOLDER_ID", "1NIGvjHBuUQHWnMqzboyg-zLI1q_bOuCH")
 
 # celery configs
-CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_REDIS_HOST = os.environ.get("CELERY_REDIS_HOST", "localhost")
+CELERY_BROKER_URL = f"redis://{CELERY_REDIS_HOST}:6379/0"
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_CACHE_BACKEND = "django-cache"
 

@@ -11,11 +11,16 @@ WORKDIR /usr/src/app
 # Install dependencies
 COPY requirements.txt /usr/src/app/
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Copy project
 COPY . /usr/src/app/
 
+# Make script executable
+RUN chmod +x /usr/src/app/wait_for_postgres.sh
 
-# Command to run the application
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Collect static files
+RUN python manage.py collectstatic --noinput
+
+# Run migrations
+CMD /usr/src/app/wait_for_postgres.sh db python manage.py migrate

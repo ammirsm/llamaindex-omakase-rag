@@ -1,15 +1,6 @@
 version: '3.8'
 
 services:
-  web:
-    build: .
-    volumes:
-      - .:/usr/src/app
-    ports:
-      - "8000:8000"
-    environment:
-      - PYTHONUNBUFFERED=1
-      - POSTGRES_HOST=db
   db:
     image: pgvector/pgvector:pg15
     volumes:
@@ -28,3 +19,35 @@ services:
         - REDIS_HOST=redis
         - REDIS_PORT=6379
         - REDIS_DB=0
+  web:
+    build: .
+    command: python manage.py runserver
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - POSTGRES_HOST=db
+      - CELERY_REDIS_HOST=redis
+    depends_on:
+      - db
+      - redis
+  celery_worker:
+    build: .
+    command: celery -A core worker -P gevent -c 1000 --loglevel=info
+    environment:
+      - PYTHONUNBUFFERED=1
+      - POSTGRES_HOST=db
+      - CELERY_REDIS_HOST=redis
+    volumes:
+      - .:/usr/src/app
+  celery_beat:
+    build: .
+    command: celery -A core beat --loglevel=info
+    environment:
+      - PYTHONUNBUFFERED=1
+      - POSTGRES_HOST=db
+      - CELERY_REDIS_HOST=redis
+    volumes:
+      - .:/usr/src/app
