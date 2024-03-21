@@ -23,4 +23,4 @@ RUN chmod +x /usr/src/app/wait_for_postgres.sh
 RUN python manage.py collectstatic --noinput
 
 # Run migrations
-CMD /usr/src/app/wait_for_postgres.sh db python manage.py migrate
+RUN /usr/src/app/wait_for_postgres.sh db python manage.py migrate
