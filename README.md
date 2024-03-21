@@ -70,6 +70,19 @@ Open the http://localhost:8000 and it should be up, running and ready to use.
 
 For adding seed data to the database, run the following command:
 
+Firstly, run the migrations:
+```bash
+docker-compose exec web python manage.py migrate
+```
+
+Then, rerun the docker compose to make sure the database is up and running:
+
+```bash
+docker-compose up -d
+```
+
+Finally, run the seeder:
+
 ```bash
 docker-compose exec web python manage.py seeder
 docker-compose exec web python manage.py check_api
@@ -78,6 +91,7 @@ docker-compose exec web python manage.py check_api
 ### Installing for Contributors
 
 After cloning the repository and navigating into the directory, install the dependencies using pip:
+
 A step by step series of examples that tell you how to get a development environment running
 
 ```

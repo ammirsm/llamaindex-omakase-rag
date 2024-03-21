@@ -21,11 +21,11 @@ services:
         - REDIS_DB=0
   web:
     build: .
-    command: python manage.py runserver
+    command: python manage.py runserver 0.0.0.0:8989
     volumes:
       - .:/usr/src/app
     ports:
-      - "8000:8000"
+      - "8989:8989"
     environment:
       - PYTHONUNBUFFERED=1
       - POSTGRES_HOST=db
