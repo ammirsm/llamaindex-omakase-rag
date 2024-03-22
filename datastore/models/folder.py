@@ -19,7 +19,7 @@ class Folder(BaseModel):
 
     # this needs to be updated regularly
     last_sync = models.DateTimeField(null=True, blank=True)
-    cron_config = models.JSONField(default=dict)
+    cron_config = models.JSONField(default=dict, null=True, blank=True)
     sync_interval = models.IntegerField(default=5)
 
     def __str__(self):
