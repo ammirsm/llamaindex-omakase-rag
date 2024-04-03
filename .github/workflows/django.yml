@@ -48,5 +48,4 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        python manage.py migrate
         python manage.py test
