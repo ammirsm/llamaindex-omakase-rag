@@ -37,6 +37,10 @@ By employing these tools and strategies, our project will enhance the usability 
 
 These instructions will get your copy of the project up and running on your local machine for development and testing purposes.
 
+Here is a video to guide you through the setup process:
+
+[![Watch the video](./watch_tut_video.gif)](https://www.loom.com/share/c79ec32ecfca47be8540529adfec3861)
+
 
 ### Prerequisites
 
