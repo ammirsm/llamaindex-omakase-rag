@@ -120,7 +120,7 @@ packaging==23.2
 pandas==2.2.0
 pathspec==0.12.1
 pgvector==0.2.5
-pillow==10.2.0
+pillow==10.3.0
 platformdirs==4.1.0
 pre-commit==3.5.0
 prompt-toolkit==3.0.43
