@@ -39,7 +39,7 @@ dirtyjson==1.0.8
 distlib==0.3.8
 distro==1.9.0
 dj-rest-auth==5.0.2
-Django==4.2.9
+Django==4.2.11
 django-advanced-filters==2.0.0
 django-allauth==0.61.1
 django-celery-beat==2.5.0
