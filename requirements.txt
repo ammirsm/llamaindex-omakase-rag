@@ -82,7 +82,7 @@ jsonpatch==1.33
 jsonpointer==2.4
 kombu==5.3.5
 langchain-community==0.0.20
-langchain-core==0.1.23
+langchain-core==0.1.35
 langsmith==0.0.87
 llama-index==0.10.6
 llama-index-agent-openai==0.1.1
